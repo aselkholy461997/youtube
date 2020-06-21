@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <HeadBar/>
+      <!-- <router-link to="/">Search</router-link> |
+      <router-link to="/details">Details</router-link> -->
     </div>
     <router-view/>
   </div>
@@ -18,7 +19,7 @@
 }
 
 #nav {
-  padding: 30px;
+  padding: 12px;
 
   a {
     font-weight: bold;
@@ -30,3 +31,18 @@
   }
 }
 </style>
+
+<script lang="ts">
+
+import { Component, Vue } from 'vue-property-decorator'
+
+import HeadBar from '@/components/HeadBar.vue'
+
+@Component({
+  components: {
+    HeadBar
+  }
+})
+export default class App extends Vue {
+}
+</script>

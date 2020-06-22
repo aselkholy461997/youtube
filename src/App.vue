@@ -2,6 +2,7 @@
   <div id="app">
     <LoadingItem/>
     <HeadBar/>
+    <router-View/>
   </div>
 </template>
 

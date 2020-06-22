@@ -1,4 +1,1 @@
-export default {
-  searchResult: {},
-  isLoading: false
-}
+export default {}

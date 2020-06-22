@@ -1,4 +1,6 @@
+import SearchResult from '@/models/SearchResult';
+
 export default {
-  searchResult: {},
+  searchResult: new SearchResult(),
   isLoading: false
 }

@@ -4,12 +4,17 @@
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
+<script lang="ts">
 
-export default {
-  name: 'Search',
-  components: {
-  }
+import { Component, Vue } from 'vue-property-decorator';
+
+import AxiosClient from '../api/index';
+
+@Component
+export default class Search extends Vue {
+  private axiosClient = AxiosClient.getInstance();
+  public uploadDate = 'This week';
+  public Type = 'Channel';
+  public SortBy = 'default';
 }
 </script>

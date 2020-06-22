@@ -1,11 +1,7 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <HeadBar/>
-      <!-- <router-link to="/">Search</router-link> |
-      <router-link to="/details">Details</router-link> -->
-    </div>
-    <router-view/>
+    <LoadingItem/>
+    <HeadBar/>
   </div>
 </template>
 
@@ -17,29 +13,18 @@
   text-align: center;
   color: #2c3e50;
 }
-
-#nav {
-  padding: 12px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
 
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator'
 
+import LoadingItem from '@/components/LoadingItem.vue'
 import HeadBar from '@/components/HeadBar.vue'
 
 @Component({
   components: {
+    LoadingItem,
     HeadBar
   }
 })

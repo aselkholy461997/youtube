@@ -16,49 +16,82 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+
+import { Component, Vue } from 'vue-property-decorator';
+
+import AxiosClient from '../api/index';
 
 @Component
 export default class HeadBar extends Vue {
+  private axiosClient = AxiosClient.getInstance();
   public searchQuery = '';
 
   public goToSearch (): void {
+    if (this.searchQuery.trim()) {
+      this.axiosClient.getSearchResults(this.searchQuery.trim());
+      if (this.$route.fullPath !== `/search?query=${this.searchQuery.trim()}`)
+        this.$router.push({
+          path: '/search',
+          query: { query: this.searchQuery.trim() }
+        });
+    }
     // with query, resulting in /register?plan=private
-    this.$router.push({ path: '/search', query: { query: this.searchQuery.trim() } })
   }
 }
 </script>
 
 <style scoped lang="scss">
 .desktop-header {
-  position: fixed;
+  flex-shrink: 30%;
+  flex-basis: content;
+  // position: fixed;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-around;
+  padding-bottom: 12px;
+  // border-bottom: 1px solid #dbdbdb;
 
   .search-button {
     background-image: url('../assets/search-icon.jpg');
-    background-size: contain;
+    background-size: 15px;
+    padding: 0px;
+    margin: 0px;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100%;
-    width: 30px;
+    width: 75px;
+    border-radius: 0px 3px 3px 0px;
   }
 
   .logo {
-    height: 30px;
+    height: 20px;
+    padding: 0px;
   }
 
-  .search-field:focus, textarea:focus {
+  .search-field {
+    width: 450px;
+    box-shadow: 0 0 2px #dbdbdb;
+    border-radius: 3px 0px 0px 3px;
+  }
+
+  .search-button,
+  .search-field {
+    height: 100%;
     outline: none;
-    box-shadow: 0 0 3px #065fd4;
+    border-color: 1px groove #dbdbdb;
+    border-width: thin;
+  }
+
+  .search-field:focus,
+  textarea:focus {
+    box-shadow: 0 0 2px #065fd4;
     padding: 3px 0px 3px 3px;
-    margin: 5px 1px 3px 0px;
-    border: 1px solid #065fd4;
+    border-color: #065fd4;
   }
 
   .search-container {
-    margin-left: 30px;
-    height: 30px;
+    //margin-left: 50px;
+    height: 35px;
     display: flex;
   }
 }

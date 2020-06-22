@@ -13,7 +13,12 @@ module.exports = {
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'semi': 'off',
+    'no-useless-constructor': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    curly: 'off',
+    'space-before-function-paren': 'off'
   },
   overrides: [
     {

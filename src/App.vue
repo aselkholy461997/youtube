@@ -3,56 +3,25 @@
     <LoadingItem />
     <HeadBar />
 
-    <router-view />
+    <router-view class="router-view" />
   </div>
 </template>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
-.d-flex {
-  display: flex;
-}
-
-.mr-2 {
-  margin-right: 0.5rem;
-}
-
-.mr-3 {
-  margin-right: 1rem;
-}
-
-.mx-2 {
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-}
-
-.mx-3 {
-  margin-right: 1rem;
-  margin-left: 1rem;
-}
-
-.mt-0 {
-  margin-top: 0;
-}
-
-.mb-0 {
-  margin-bottom: 0;
-}
-
-.my-3 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.bold {
-  font-weight: bold;
+.router-view {
+  background-color: #fafafa;
+  padding: 1rem;
+  min-height: calc(100vh - 6rem);
+  @media (min-width: 600px) {
+    padding: 1rem 15%;
+  }
 }
 </style>
 

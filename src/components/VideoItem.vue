@@ -8,7 +8,7 @@
       <p class="title cursor-pointer my-0">
         {{ title }}
       </p>
-      <div class="row info-row my-2">
+      <div class="row info-row">
         <p class="separator cursor-pointer my-0">{{ item.snippet.channelTitle }}</p>
         <p class="separator my-0">{{ views }}</p>
         <p class="my-0">{{ publishedAt }}</p>
@@ -75,11 +75,13 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
 <style scoped lang="scss">
 .img-container {
   position: relative;
+  width: fit-content;
+  height: fit-content;
 
   .duration {
     position: absolute;
-    right: 12px;
-    bottom: 10px;
+    right: 0.6rem;
+    bottom: 0.6rem;
     text-align: center;
     color: white;
     background-color: rgba(35, 34, 35, 0.75);
@@ -93,11 +95,19 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
   overflow-y: auto;
 
   .title {
-    font-size: larger;
     color: #111111;
+    @media (min-width: 600px) {
+      font-size: larger;
+    }
   }
 
   .info-row {
+    margin: 0.25rem 0;
+
+    @media (min-width: 600px) {
+      margin: 0.5rem 0;
+    }
+
     .separator::after {
       content: '•';
       margin: 0 4px;
@@ -107,6 +117,9 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
   .description {
     font-size: medium;
     color: #9f9f9f;
+    @media (max-width: 599px) {
+      display: none;
+    }
   }
 }
 </style>

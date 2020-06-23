@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div
-      class="mx-3 my-3"
+      :class="{ 'mb-4': index != searchItems.length - 1 }"
       v-for="(item, index) in searchItems"
       :key="
         item.id.kind === 'youtube#channel'
@@ -13,8 +13,9 @@
           : 'youtubeItem' + index
       "
     >
-      <VideoItem v-if="item.id.kind === 'youtube#video'" :item="item" />
-      <pre v-else>{{ item }}</pre>
+      <VideoItem v-if="item.id.kind === 'youtube#channel'" :item="item" />
+      <VideoItem v-else-if="item.id.kind === 'youtube#video'" :item="item" />
+      <p v-else>{{ item.id.kind }}</p>
     </div>
   </div>
 </template>
@@ -25,10 +26,12 @@ import store from '@/store';
 
 import AxiosClient from '../api/index';
 import VideoItem from '@/components/VideoItem.vue';
+// import ChannelItem from '@/components/ChannelItem.vue';
 
 @Component({
   components: {
     VideoItem
+    // ChannelItem
   }
 })
 export default class Search extends Vue {

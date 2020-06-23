@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Mixins, Watch } from 'vue-property-decorator';
+import { Component, Prop, Mixins } from 'vue-property-decorator';
 import YoutubeItem from '../models/YoutubeItem';
 import VideoDetails from '../models/VideoDetails';
 import HTMLEntitiesMixin from '@/mixins/HTMLEntitiesMixin';

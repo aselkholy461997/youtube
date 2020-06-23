@@ -23,10 +23,10 @@ import AxiosClient from '../api/index';
 
 @Component
 export default class HeadBar extends Vue {
-  private axiosClient = AxiosClient.getInstance();
-  public searchQuery = '';
+  axiosClient = AxiosClient.getInstance();
+  searchQuery = '';
 
-  public goToSearch (): void {
+  goToSearch (): void {
     if (this.searchQuery.trim()) {
       this.axiosClient.getSearchResults(this.searchQuery.trim());
       if (this.$route.fullPath !== `/search?query=${this.searchQuery.trim()}`)
@@ -35,7 +35,6 @@ export default class HeadBar extends Vue {
           query: { query: this.searchQuery.trim() }
         });
     }
-    // with query, resulting in /register?plan=private
   }
 }
 </script>

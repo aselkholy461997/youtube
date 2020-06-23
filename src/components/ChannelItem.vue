@@ -26,8 +26,7 @@ export default class ChannelItem extends Vue {
   channelId = String(this.item.id.channelId);
   title = this.item.snippet.title;
 
-  public goToSearch(): void {
-    // with query, resulting in /register?plan=private
+  goToSearch(): void {
     this.$router.push({ path: '/channels', params: { channelId: this.channelId } });
   }
 }

@@ -33,7 +33,7 @@ export default class VideoItem extends Vue {
 </script>
 
 <style scoped lang="scss">
-.img-container {
+// .img-container {
   // position: relative;
   // text-align: center;
   // color: white;
@@ -43,8 +43,8 @@ export default class VideoItem extends Vue {
   //   bottom: 8px;
   //   right: 16px;
   // }
-}
+// }
 
-.text-container {
-}
+// .text-container {
+// }
 </style>

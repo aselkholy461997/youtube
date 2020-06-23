@@ -25,7 +25,6 @@ import store from '@/store';
 
 import AxiosClient from '../api/index';
 import VideoItem from '@/components/VideoItem.vue';
-import YoutubeItem from '../models/YoutubeItem';
 
 @Component({
   components: {
@@ -33,13 +32,10 @@ import YoutubeItem from '../models/YoutubeItem';
   }
 })
 export default class Search extends Vue {
-  private axiosClient = AxiosClient.getInstance();
-  public uploadDate = 'This week';
-  public Type = 'Channel';
-  public SortBy = 'default';
+  axiosClient = AxiosClient.getInstance();
 
-  get searchItems(): YoutubeItem[] {
-    return (store.state.searchResult as any).items;
+  get searchItems() {
+    return store.state.searchResult.items;
   }
 }
 </script>

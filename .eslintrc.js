@@ -18,7 +18,8 @@ module.exports = {
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     curly: 'off',
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'brace-style': 'warn'
   },
   overrides: [
     {

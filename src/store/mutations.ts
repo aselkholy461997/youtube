@@ -9,5 +9,8 @@ export default {
   },
   toggleIsLoading: (state: { isLoading: boolean }) => {
     state.isLoading = !state.isLoading;
+  },
+  setIsLoading: (state: { isLoading: boolean }, value: boolean) => {
+    state.isLoading = value;
   }
 };

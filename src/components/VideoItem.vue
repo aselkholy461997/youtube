@@ -1,43 +1,50 @@
 <template>
-  <div class="video-item">
-    <div class="img-container">
-      <img @click="goToDetails" src="../assets/desktop-logo.png" />
-      <p class="duration"> 06:30 </p>
+  <div class="d-flex">
+    <div class="img-container mr-3">
+      <img v-bind:src="imgSrc" alt="Video Image" />
     </div>
-    <div class="details-container">
-      <h3 @click="goToDetails">
-        Spongebob
-      </h3>
-      <p>njadfsbf</p>
-      <p>njadfsbf</p>
+    <div class="text-container">
+      <p class="bold" style="font-size: 2rem;">
+        {{ item.snippet.title }}
+      </p>
+      <p class="mb-0">
+        {{ item.snippet.description }}
+      </p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import YoutubeItem from '../models/YoutubeItem';
 
 @Component
-export default class HeadBar extends Vue {
-  public videoId = 0;
+export default class VideoItem extends Vue {
+  @Prop({ required: true }) item!: YoutubeItem;
 
-  public goToSearch (): void {
-    // with query, resulting in /register?plan=private
-    this.$router.push({ path: '/details', params: { videoId: this.videoId.toString() } });
+  get imgSrc(): string {
+    const thumbnails = this.item.snippet.thumbnails;
+
+    if (window.screen.width / 3 >= thumbnails.high.width) return thumbnails.high.url;
+    else if (window.screen.width / 3 >= thumbnails.medium.width) return thumbnails.medium.url;
+    else return thumbnails.default.url;
   }
 }
 </script>
 
 <style scoped lang="scss">
-  .img-container {
-  position: relative;
-  text-align: center;
-  color: white;
+.img-container {
+  // position: relative;
+  // text-align: center;
+  // color: white;
 
-    .duration {
-    position: absolute;
-    bottom: 8px;
-    right: 16px;
-    }
-  }
+  // .duration {
+  //   position: absolute;
+  //   bottom: 8px;
+  //   right: 16px;
+  // }
+}
+
+.text-container {
+}
 </style>

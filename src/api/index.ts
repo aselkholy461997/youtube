@@ -37,12 +37,15 @@ export default class AxiosClient {
     const youtubeDateFormat = new Date(Date.now());
     if (uploadDate === 'Last hour') youtubeDateFormat.setMinutes(0, 0, 0);
     else if (uploadDate === 'Today') youtubeDateFormat.setHours(0, 0, 0, 0);
-    else if (uploadDate === 'This month') {
+    else if (uploadDate === 'This week') {
+      const firstDay = youtubeDateFormat.getDate() - youtubeDateFormat.getDay();
+      youtubeDateFormat.setDate(firstDay);
+      youtubeDateFormat.setHours(0, 0, 0, 0);
+    } else if (uploadDate === 'This month') {
       youtubeDateFormat.setMonth(youtubeDateFormat.getMonth(), 1);
       youtubeDateFormat.setHours(0, 0, 0, 0);
     } else {
-      const firstDay = youtubeDateFormat.getDate() - youtubeDateFormat.getDay();
-      youtubeDateFormat.setDate(firstDay);
+      youtubeDateFormat.setMonth(0, 1);
       youtubeDateFormat.setHours(0, 0, 0, 0);
     }
     return youtubeDateFormat.toISOString();

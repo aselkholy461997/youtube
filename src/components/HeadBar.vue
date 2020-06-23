@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts">
-
 import { Component, Vue } from 'vue-property-decorator';
 
 import AxiosClient from '../api/index';
@@ -26,7 +25,7 @@ export default class HeadBar extends Vue {
   axiosClient = AxiosClient.getInstance();
   searchQuery = '';
 
-  goToSearch (): void {
+  goToSearch(): void {
     if (this.searchQuery.trim()) {
       this.axiosClient.getSearchResults(this.searchQuery.trim());
       if (this.$route.fullPath !== `/search?query=${this.searchQuery.trim()}`)
@@ -41,15 +40,17 @@ export default class HeadBar extends Vue {
 
 <style scoped lang="scss">
 .desktop-header {
-  flex-shrink: 30%;
-  flex-basis: content;
-  // position: fixed;
+  height: 2.5rem;
   display: flex;
   flex-direction: row;
+  flex-shrink: 30%;
+  flex-basis: content;
   align-items: center;
-  justify-content: space-around;
-  padding-bottom: 12px;
+  justify-content: space-between;
+  padding: 12px 15%;
   // border-bottom: 1px solid #dbdbdb;
+  box-shadow: 0 1px 10px -5px #888888;
+  position: relative;
 
   .search-button {
     background-image: url('../assets/search-icon.jpg');
@@ -58,40 +59,44 @@ export default class HeadBar extends Vue {
     margin: 0px;
     background-repeat: no-repeat;
     background-position: center;
-    width: 75px;
+    width: 4.5rem;
     border-radius: 0px 3px 3px 0px;
   }
 
   .logo {
-    height: 20px;
-    padding: 0px;
+    height: auto;
+    max-height: 60%;
+    max-width: 20%;
   }
 
   .search-field {
-    width: 450px;
+    width: calc(100% - 4.5rem);
     box-shadow: 0 0 2px #dbdbdb;
     border-radius: 3px 0px 0px 3px;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
   }
 
   .search-button,
   .search-field {
     height: 100%;
     outline: none;
-    border-color: 1px groove #dbdbdb;
+    border-color: groove #dbdbdb;
     border-width: thin;
   }
 
   .search-field:focus,
   textarea:focus {
     box-shadow: 0 0 2px #065fd4;
-    padding: 3px 0px 3px 3px;
+    // padding: 3px 0px 3px 3px;
     border-color: #065fd4;
   }
 
   .search-container {
     //margin-left: 50px;
-    height: 35px;
+    height: 100%;
     display: flex;
+    width: 60%;
   }
 }
 </style>

@@ -1,3 +1,5 @@
+import Thumbnails from './Thumbnails';
+
 export default class YoutubeItem {
   kind!: string;
   etag!: string;
@@ -12,23 +14,7 @@ export default class YoutubeItem {
     channelId: string;
     title: string;
     description: string;
-    thumbnails: {
-      default: {
-        url: string;
-        width: number;
-        height: number;
-      };
-      medium: {
-        url: string;
-        width: number;
-        height: number;
-      };
-      high: {
-        url: string;
-        width: number;
-        height: number;
-      };
-    };
+    thumbnails: Thumbnails
   };
   channelTitle!: string;
   liveBroadcastContent!: string;

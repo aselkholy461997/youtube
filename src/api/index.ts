@@ -11,10 +11,10 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
   private static axiosClient: AxiosClient;
 
   private baseApiURL = 'https://www.googleapis.com/youtube/v3/';
-  // private apiKey = 'AIzaSyA6y_OuMGhA9fGJIpirKMJx3IclpMogiU0';
-  private apiKey = 'AIzaSyAFaGDINuSRAK8Pk0NgPGk8fmh3hav73PM';
+  private apiKey = 'AIzaSyA6y_OuMGhA9fGJIpirKMJx3IclpMogiU0';
+  // private apiKey = 'AIzaSyAFaGDINuSRAK8Pk0NgPGk8fmh3hav73PM';
 
-  private maxResults = 2;
+  private maxResults = 7;
 
   private constructor() {
     super();
@@ -33,7 +33,7 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
       url += filters.order ? `&order=${filters.order}` : '';
       url += filters.uploadDate ? `&publishedAfter=${this.calculateUploadDate(filters.uploadDate)}` : '';
     }
-    return axios.get(url).then(response => {
+    return axios.get(url).then((response) => {
       store.dispatch('populateSearchResult', response.data);
       store.commit('toggleIsLoading');
     });
@@ -47,6 +47,12 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
 
   public async getChannelDetails(channelId: string) {
     const url = `${this.baseApiURL}channels?part=statistics&id=${channelId}&key=${this.apiKey}`;
+    const response = await axios.get(url);
+    return response.data;
+  }
+
+  public async getPlaylistDetails(playlistId: string) {
+    const url = `${this.baseApiURL}playlistItems?part=snippet&playlistId=${playlistId}&key=${this.apiKey}`;
     const response = await axios.get(url);
     return response.data;
   }

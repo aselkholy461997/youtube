@@ -10,7 +10,7 @@
         v-model="searchQuery"
         @keyup.enter="goToSearch"
       />
-      <button class="search-button" @click="goToSearch"></button>
+      <button class="search-button cursor-pointer" @click="goToSearch"></button>
     </div>
   </div>
 </template>

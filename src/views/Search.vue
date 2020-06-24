@@ -25,8 +25,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import store from '@/store';
 
 import AxiosClient from '../api/index';
-import VideoItem from '@/components/VideoItem.vue';
-// import ChannelItem from '@/components/ChannelItem.vue';
+import VideoItem from '@/components/youtube-items/VideoItem.vue';
+// import ChannelItem from '@/components/youtube-items/ChannelItem.vue';
 
 @Component({
   components: {

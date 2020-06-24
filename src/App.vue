@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <LoadingItem />
+    <LoadingBar v-if="loadingStatus && windowWidth >= 600" />
     <HeadBar />
 
     <router-view class="router-view" />
@@ -27,15 +27,35 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import store from '@/store';
 
-import LoadingItem from '@/components/LoadingItem.vue';
+import LoadingBar from '@/components/loading/LoadingBar.vue';
 import HeadBar from '@/components/HeadBar.vue';
 
 @Component({
   components: {
-    LoadingItem,
+    LoadingBar,
     HeadBar
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  windowWidth = 0;
+
+  mounted() {
+    this.windowWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+    });
+  }
+
+  beforeDestroy() {
+    window.removeEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+    });
+  }
+
+  get loadingStatus(): boolean {
+    return store.state.isLoading;
+  }
+}
 </script>

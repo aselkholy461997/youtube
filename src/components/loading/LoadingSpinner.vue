@@ -1,10 +1,5 @@
 <template>
-  <div class="loading-item" v-if="loadingStatus">
-    <div class="progress-bar">
-      <span class="bar">
-        <span class="progress"></span>
-      </span>
-    </div>
+  <div class="loading-spinnerr" v-if="loadingStatus">
     <svg class="spinner" viewBox="0 0 50 50">
       <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
     </svg>
@@ -17,7 +12,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import store from '@/store';
 
 @Component
-export default class LoadingItem extends Vue {
+export default class LoadingSpinner extends Vue {
   get loadingStatus(): boolean {
     return store.state.isLoading;
   }
@@ -25,31 +20,6 @@ export default class LoadingItem extends Vue {
 </script>
 
 <style scoped lang="scss">
-// Bar ============================================
-.progress-bar {
-  overflow: hidden;
-  width: 100%;
-
-  span {
-    display: block;
-  }
-}
-
-.bar {
-  background: rgba(0, 0, 0, 0.075);
-}
-
-.progress {
-  animation: loader 0.3s ease forwards;
-  // Change the animation fill mode 'infinite' to 'forwards' to stop the animation from repeating.
-  background: red;
-  color: #fff;
-  padding: 2px;
-  width: 0;
-}
-
-// Ring ============================================
-
 .spinner {
   animation: rotate 2s linear infinite;
   z-index: 2;
@@ -67,6 +37,7 @@ export default class LoadingItem extends Vue {
   }
 }
 
+// Animation =============================================
 @keyframes rotate {
   100% {
     transform: rotate(360deg);
@@ -119,49 +90,6 @@ export default class LoadingItem extends Vue {
 // .progress-ring div:nth-child(3) {
 //   animation-delay: -0.15s;
 // }
-
-// Animation =============================================
-@keyframes loader {
-  0% {
-    width: 0;
-  }
-
-  20% {
-    width: 10%;
-  }
-
-  25% {
-    width: 24%;
-  }
-
-  43% {
-    width: 41%;
-  }
-
-  56% {
-    width: 50%;
-  }
-
-  66% {
-    width: 52%;
-  }
-
-  71% {
-    width: 60%;
-  }
-
-  75% {
-    width: 76%;
-  }
-
-  94% {
-    width: 86%;
-  }
-
-  100% {
-    width: 100%;
-  }
-}
 
 // @keyframes progress-ring {
 //   0% {

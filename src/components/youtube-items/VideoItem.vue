@@ -24,12 +24,12 @@
 
 <script lang="ts">
 import { Component, Prop, Mixins } from 'vue-property-decorator';
-import YoutubeItem from '../models/YoutubeItem';
-import VideoDetails from '../models/VideoDetails';
+import YoutubeItem from '../../models/YoutubeItem';
+import VideoDetails from '../../models/VideoDetails';
 import HTMLEntitiesMixin from '@/mixins/HTMLEntitiesMixin';
-import DateTimeMixin from '../mixins/DateTimeMixin';
-import VideoInfoMixin from '../mixins/VideoInfoMixin';
-import AxiosClient from '../api';
+import DateTimeMixin from '../../mixins/DateTimeMixin';
+import VideoInfoMixin from '../../mixins/VideoInfoMixin';
+import AxiosClient from '../../api';
 
 @Component
 export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, VideoInfoMixin) {

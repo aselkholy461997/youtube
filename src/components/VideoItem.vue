@@ -1,16 +1,18 @@
 <template>
   <div class="d-flex">
     <div class="img-container cursor-pointer mr-3">
-      <img v-bind:src="imgSrc" alt="Video Image" />
+      <img v-bind:src="thumbnail.url" alt="Video Image" />
       <div class="duration">{{ duration }}</div>
     </div>
-    <div class="text-container">
+    <div class="text-container col" :style="{ 'max-height': thumbnail.height + 'px' }">
       <p class="title cursor-pointer my-0">
         {{ title }}
       </p>
-      <div class="row info-row">
-        <p class="separator cursor-pointer my-0">{{ item.snippet.channelTitle }}</p>
-        <p class="separator my-0">{{ views }}</p>
+      <div class="info-row" :class="{ row: windowWidth >= 600 }">
+        <p class="separator cursor-pointer my-0">
+          {{ item.snippet.channelTitle }}
+        </p>
+        <p class="publishedAt separator my-0">{{ views }}</p>
         <p class="my-0">{{ publishedAt }}</p>
       </div>
       <p class="description my-0">
@@ -34,8 +36,9 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
   @Prop({ required: true }) item!: YoutubeItem;
   private axiosClient = AxiosClient.getInstance();
   private videoDetails: VideoDetails | undefined;
-  private views = '';
-  private duration = '';
+  views = '';
+  duration = '';
+  windowWidth = 0;
 
   async created() {
     if (this.item.id.videoId && !this.videoDetails) {
@@ -49,12 +52,25 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
     }
   }
 
-  get imgSrc(): string {
+  mounted() {
+    this.windowWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+    });
+  }
+
+  beforeDestroy() {
+    window.removeEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+    });
+  }
+
+  get thumbnail() {
     const thumbnails = this.item.snippet.thumbnails;
 
-    if (window.screen.width / 3 >= thumbnails.high.width) return thumbnails.high.url;
-    else if (window.screen.width / 3 >= thumbnails.medium.width) return thumbnails.medium.url;
-    else return thumbnails.default.url;
+    if (window.screen.width / 3 >= thumbnails.high.width) return thumbnails.high;
+    else if (window.screen.width / 3 >= thumbnails.medium.width) return thumbnails.medium;
+    else return thumbnails.default;
   }
 
   get title(): string {
@@ -64,11 +80,6 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
   get publishedAt(): string {
     return this.calculatePublishedAtDate(this.item.snippet.publishedAt);
   }
-
-  // get duration(): string {
-  //   if(this.videoDetails)
-  //   return this.videoDetails.items[0].contentDetails
-  // }
 }
 </script>
 
@@ -93,6 +104,7 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
 .text-container {
   text-align: initial;
   overflow-y: auto;
+  align-items: stretch;
 
   .title {
     color: #111111;
@@ -102,18 +114,25 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
   }
 
   .info-row {
-    margin: 0.25rem 0;
+    margin: 0.25rem 0 0;
+    color: #9f9f9f;
 
     @media (min-width: 600px) {
       margin: 0.5rem 0;
-    }
 
-    .separator::after {
-      content: '•';
-      margin: 0 4px;
+      .separator::after {
+        content: '•';
+        margin: 0 4px;
+      }
     }
   }
 
+  .publishedAt {
+    display: none;
+    @media (min-width: 600px) {
+      display: block;
+    }
+  }
   .description {
     font-size: medium;
     color: #9f9f9f;

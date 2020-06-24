@@ -8,6 +8,11 @@
   flex-wrap: wrap;
 }
 
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
 .m-0 {
   margin: 0;
 }

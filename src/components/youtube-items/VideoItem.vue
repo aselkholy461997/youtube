@@ -24,18 +24,21 @@
 
 <script lang="ts">
 import { Component, Prop, Mixins } from 'vue-property-decorator';
-import YoutubeItem from '../../models/YoutubeItem';
-import VideoDetails from '../../models/VideoDetails';
+import YoutubeItem from '@/models/YoutubeItem';
+import VideoDetails from '@/models/VideoDetails';
 import HTMLEntitiesMixin from '@/mixins/HTMLEntitiesMixin';
-import DateTimeMixin from '../../mixins/DateTimeMixin';
-import VideoInfoMixin from '../../mixins/VideoInfoMixin';
-import AxiosClient from '../../api';
+import DateTimeMixin from '@/mixins/DateTimeMixin';
+import YoutubeItemsMixin from '@/mixins/YoutubeItemsMixin';
+import AxiosClient from '@/api';
 
 @Component
-export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, VideoInfoMixin) {
+export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, YoutubeItemsMixin) {
   @Prop({ required: true }) item!: YoutubeItem;
-  private axiosClient = AxiosClient.getInstance();
-  private videoDetails: VideoDetails | undefined;
+
+  axiosClient = AxiosClient.getInstance();
+
+  videoDetails: VideoDetails | undefined;
+
   views = '';
   duration = '';
   windowWidth = 0;
@@ -45,7 +48,7 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
       this.videoDetails = await this.axiosClient.getVideoDetails(this.item.id.videoId);
       if (this.videoDetails) {
         if (this.videoDetails.items[0].statistics)
-          this.views = this.calculateViews(this.videoDetails.items[0].statistics.viewCount);
+          this.views = this.calculateStatisticsNumbers(this.videoDetails.items[0].statistics.viewCount);
         if (this.videoDetails.items[0].contentDetails)
           this.duration = this.calculateDuration(this.videoDetails.items[0].contentDetails.duration);
       }
@@ -133,6 +136,7 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
       display: block;
     }
   }
+
   .description {
     font-size: medium;
     color: #9f9f9f;

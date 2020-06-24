@@ -126,9 +126,9 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
     flex-direction: column;
 
     @media (min-width: 600px) {
-      flex-direction: row;
       margin: 0.5rem 0;
       font-size: small;
+      flex-direction: row;
 
       .separator::after {
         content: '•';

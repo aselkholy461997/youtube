@@ -8,12 +8,12 @@ class YoutubeItemsMixin extends Vue {
   }
 
   public calculateStatisticsNumbers(value: string) {
-    const views = Number(value);
-    if (value.length <= 3) return String(views);
-    else if (value.length <= 6) return (views / Math.pow(10, 3)).toFixed(1) + 'K';
-    else if (value.length <= 9) return (views / Math.pow(10, 6)).toFixed(1) + 'M';
-    else if (value.length <= 12) return (views / Math.pow(10, 9)).toFixed(1) + 'B';
-    else return (views / Math.pow(10, 12)).toFixed(1) + 'T';
+    const result = Number(value);
+    if (value.length <= 3) return String(result);
+    else if (value.length <= 6) return (result / Math.pow(10, 3)).toFixed(1) + 'K';
+    else if (value.length <= 9) return (result / Math.pow(10, 6)).toFixed(1) + 'M';
+    else if (value.length <= 12) return (result / Math.pow(10, 9)).toFixed(1) + 'B';
+    else return (result / Math.pow(10, 12)).toFixed(1) + 'T';
   }
 
   public calculateDuration(value: string) {

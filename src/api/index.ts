@@ -14,7 +14,7 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
   private apiKey = 'AIzaSyA6y_OuMGhA9fGJIpirKMJx3IclpMogiU0';
   // private apiKey = 'AIzaSyAFaGDINuSRAK8Pk0NgPGk8fmh3hav73PM';
 
-  private maxResults = 7;
+  private maxResults = 4;
 
   private constructor() {
     super();
@@ -25,7 +25,11 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
     return this.axiosClient;
   }
 
-  public getSearchResults(query: string, filters?: { type: string; order: string; uploadDate: string }) {
+  public getSearchResults(
+    query: string,
+    filters?: { type: string; order: string; uploadDate: string },
+    nextPageToken?: string
+  ) {
     store.commit('toggleIsLoading');
     let url = `${this.baseApiURL}search?part=snippet&maxResults=${this.maxResults}&q=${query}&key=${this.apiKey}`;
     if (filters) {
@@ -33,8 +37,12 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
       url += filters.order ? `&order=${filters.order}` : '';
       url += filters.uploadDate ? `&publishedAfter=${this.calculateUploadDate(filters.uploadDate)}` : '';
     }
-    return axios.get(url).then((response) => {
-      store.dispatch('populateSearchResult', response.data);
+    if (nextPageToken) url += `&pageToken=${nextPageToken}`;
+    return axios.get(url).then(response => {
+      if (nextPageToken) {
+        store.dispatch('addToSearchResult', response.data.items);
+        store.dispatch('populateNextPageToken', response.data.nextPageToken);
+      } else store.dispatch('populateSearchResult', response.data);
       store.commit('toggleIsLoading');
     });
   }

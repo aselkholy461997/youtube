@@ -1,5 +1,5 @@
 <template>
-  <div class="loading-spinnerr" v-if="loadingStatus">
+  <div class="loading-spinner">
     <svg class="spinner" viewBox="0 0 50 50">
       <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
     </svg>
@@ -9,26 +9,30 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-import store from '@/store';
-
 @Component
-export default class LoadingSpinner extends Vue {
-  get loadingStatus(): boolean {
-    return store.state.isLoading;
-  }
-}
+export default class LoadingSpinner extends Vue {}
 </script>
 
 <style scoped lang="scss">
+.loading-spinner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: contents;
+}
+
 .spinner {
   animation: rotate 2s linear infinite;
   z-index: 2;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -25px 0 0 -25px;
-  width: 50px;
-  height: 50px;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // margin: -25px 0 0 -25px;
+  // width: 50px;
+  // height: 50px;
+  height: 100%;
+  max-width: 5rem;
+  max-height: 5rem;
 
   & .path {
     stroke: red;

@@ -12,5 +12,8 @@ export default {
   },
   setIsLoading: (state: { isLoading: boolean }, value: boolean) => {
     state.isLoading = value;
+  },
+  setNextPageToken: (state: { searchResult: SearchResult }, value: string) => {
+    state.searchResult.nextPageToken = value;
   }
 };

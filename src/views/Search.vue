@@ -1,6 +1,5 @@
 <template>
   <div class="search">
-    <div></div>
     <div
       :class="{ 'mb-4': index != searchItems.length - 1 }"
       v-for="(item, index) in searchItems"
@@ -16,8 +15,13 @@
     >
       <ChannelItem v-if="item.id.kind === 'youtube#channel'" :item="item" />
       <VideoItem v-else-if="item.id.kind === 'youtube#video'" :item="item" />
-      <PlaylistItem v-else :item="item" />
+      <PlaylistItem v-else-if="item.id.kind === 'youtube#playlist'" :item="item" />
+      <p v-else>{{ item.id.kind }}</p>
     </div>
+    <button v-if="windowWidth < 600" id="load-more-button" class="mt-2" @click="loadMore">
+      {{ loadingStatus ? '' : 'Load More' }}
+      <LoadingSpinner v-if="loadingStatus" />
+    </button>
   </div>
 </template>
 
@@ -29,19 +33,78 @@ import AxiosClient from '../api/index';
 import VideoItem from '@/components/youtube-items/VideoItem.vue';
 import ChannelItem from '@/components/youtube-items/ChannelItem.vue';
 import PlaylistItem from '@/components/youtube-items/PlaylistItem.vue';
+import LoadingSpinner from '@/components/loading/LoadingSpinner.vue';
 
 @Component({
   components: {
     VideoItem,
     ChannelItem,
-    PlaylistItem
+    PlaylistItem,
+    LoadingSpinner
   }
 })
 export default class Search extends Vue {
   axiosClient = AxiosClient.getInstance();
+  windowWidth = 0;
+  searchQuery = '';
+
+  get loadingStatus(): boolean {
+    return store.state.isLoading;
+  }
 
   get searchItems() {
     return store.state.searchResult.items;
   }
+
+  created() {
+    if (!store.state.isLoading && !store.state.searchResult.items) {
+      const searchQuery = this.$route.query.query as string;
+
+      if (searchQuery && searchQuery.trim()) {
+        this.searchQuery = searchQuery.trim();
+        this.axiosClient.getSearchResults(this.searchQuery.trim());
+      }
+    }
+  }
+
+  mounted() {
+    this.windowWidth = window.innerWidth;
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('scroll', this.onScroll);
+  }
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  onResize() {
+    this.windowWidth = window.innerWidth;
+  }
+
+  onScroll() {
+    if (store.state.searchResult.nextPageToken && this.windowWidth >= 600) {
+      const isBottomOfWindowReached =
+        Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) +
+          window.innerHeight ===
+        document.documentElement.offsetHeight;
+
+      if (isBottomOfWindowReached) this.loadMore();
+    }
+  }
+
+  loadMore() {
+    if (!store.state.isLoading)
+      this.axiosClient.getSearchResults(this.searchQuery.trim(), undefined, store.state.searchResult.nextPageToken);
+  }
 }
 </script>
+
+<style scoped lang="scss">
+#load-more-button {
+  width: 100%;
+  height: 3rem;
+  padding: 0.5rem;
+  font-size: larger;
+}
+</style>

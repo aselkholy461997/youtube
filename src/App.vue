@@ -3,6 +3,8 @@
     <LoadingBar v-if="loadingStatus && windowWidth >= 600" />
     <HeadBar />
 
+    <LoadingSpinner v-if="loadingStatus" />
+
     <router-view class="router-view" />
   </div>
 </template>
@@ -29,13 +31,15 @@
 import { Component, Vue } from 'vue-property-decorator';
 import store from '@/store';
 
-import LoadingBar from '@/components/loading/LoadingBar.vue';
 import HeadBar from '@/components/HeadBar.vue';
+import LoadingBar from '@/components/loading/LoadingBar.vue';
+import LoadingSpinner from '@/components/loading/LoadingSpinner.vue';
 
 @Component({
   components: {
+    HeadBar,
     LoadingBar,
-    HeadBar
+    LoadingSpinner
   }
 })
 export default class App extends Vue {

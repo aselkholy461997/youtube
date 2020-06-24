@@ -1,15 +1,15 @@
 <template>
-  <div class="d-flex">
-    <div class="img-container cursor-pointer mr-3">
+  <div class="d-flex cursor-pointer">
+    <div class="img-container mr-3">
       <img v-bind:src="thumbnail.url" alt="Video Image" />
-      <div class="duration">{{ duration }}</div>
+      <div class="duration m-0">{{ duration }}</div>
     </div>
     <div class="text-container col" :style="{ 'max-height': thumbnail.height + 'px' }">
-      <p class="title cursor-pointer my-0">
+      <p class="title my-0">
         {{ title }}
       </p>
-      <div class="info-row" :class="{ row: windowWidth >= 600 }">
-        <p class="separator cursor-pointer my-0">
+      <div class="info-row d-flex">
+        <p class="separator my-0">
           {{ item.snippet.channelTitle }}
         </p>
         <p class="publishedAt separator my-0">{{ views }}</p>
@@ -94,34 +94,41 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
 
   .duration {
     position: absolute;
-    right: 0.6rem;
-    bottom: 0.6rem;
+    right: 0.3rem;
+    bottom: 0.5rem;
     text-align: center;
+    font-size: small;
     color: white;
-    background-color: rgba(35, 34, 35, 0.75);
-    padding: 0.1rem 0.2rem 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 0.1rem 0.1rem 0;
     pointer-events: none;
+    border-radius: 3px;
   }
 }
 
 .text-container {
   text-align: initial;
-  overflow-y: auto;
+  overflow-y: hidden;
   align-items: stretch;
 
   .title {
     color: #111111;
+    font-size: small;
     @media (min-width: 600px) {
-      font-size: larger;
+      font-size: large;
     }
   }
 
   .info-row {
     margin: 0.25rem 0 0;
     color: #9f9f9f;
+    font-size: smaller;
+    flex-direction: column;
 
     @media (min-width: 600px) {
+      flex-direction: row;
       margin: 0.5rem 0;
+      font-size: small;
 
       .separator::after {
         content: '•';
@@ -138,7 +145,7 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
   }
 
   .description {
-    font-size: medium;
+    font-size: small;
     color: #9f9f9f;
     @media (max-width: 599px) {
       display: none;

@@ -1,16 +1,16 @@
 <template>
-  <div class="d-flex">
-    <div class="img-container cursor-pointer mr-3">
-      <img :src="thumbnail.url" @click="goToChannels" alt="Channel Image" />
+  <div class="d-flex cursor-pointer">
+    <!-- @click="goToChannels"  -->
+    <div class="img-container mr-3">
+      <img :src="thumbnail.url" alt="Channel Image" />
     </div>
     <div class="text-container col" :style="{ 'max-height': thumbnail.height + 'px' }">
-      <p class="title cursor-pointer my-0" @click="goToChannels">
+      <p class="title my-0">
         {{ title }}
       </p>
-      <div class="info-row" :class="{ row: windowWidth >= 600 }">
-        <p class="separator cursor-pointer my-0">{{ item.snippet.channelTitle }}</p>
-        <p class="publishedAt separator my-0">{{ subscriberCount }}</p>
-        <p class="my-0">{{ publishedAt }}</p>
+      <div class="info-row d-flex">
+        <p class="separator my-0">{{ subscriberCount }} subscribers</p>
+        <p class="my-0">{{ videoCount }} videos</p>
       </div>
       <p class="description my-0">
         {{ item.snippet.description }}
@@ -37,7 +37,6 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
 
   subscriberCount = '';
   videoCount = '';
-  windowWidth = 0;
 
   async created() {
     if (this.item.id.channelId && !this.channelDetails) {
@@ -53,19 +52,6 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
     }
   }
 
-  mounted() {
-    this.windowWidth = window.innerWidth;
-    window.addEventListener('resize', () => {
-      this.windowWidth = window.innerWidth;
-    });
-  }
-
-  beforeDestroy() {
-    window.removeEventListener('resize', () => {
-      this.windowWidth = window.innerWidth;
-    });
-  }
-
   get thumbnail() {
     const thumbnails = this.item.snippet.thumbnails;
 
@@ -78,36 +64,56 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
     return this.translateHTMLEntities(this.item.snippet.title);
   }
 
-  goToChannel(): void {
-    if (this.item.id.channelId) this.$router.push({ path: '/channels/', params: { channelId: this.item.id.channelId } });
-  }
+  // goToChannel(): void {
+  //   if (this.item.id.channelId) this.$router.push({ path: '/channels/', params: { channelId: this.item.id.channelId } });
+  // }
 }
 </script>
 
 <style scoped lang="scss">
 .img-container {
-  width: fit-content;
+  width: 53%;
   height: fit-content;
+  @media (max-width: 599px) {
+    width: fit-content;
+  }
+
+  img {
+    border-radius: 50%;
+    width: 40%;
+    height: 80%;
+    @media (max-width: 599px) {
+      width: auto;
+      height: auto;
+    }
+  }
 }
 
 .text-container {
   text-align: initial;
-  overflow-y: auto;
+  overflow-y: hidden;
   align-items: stretch;
 
   .title {
+    margin-top: 17%;
     color: #111111;
+    font-size: small;
     @media (min-width: 600px) {
-      font-size: larger;
+      margin-top: 3%;
+      font-size: large;
     }
   }
 
   .info-row {
     margin: 0.25rem 0 0;
     color: #9f9f9f;
+    font-size: smaller;
+    flex-direction: column-reverse;
 
     @media (min-width: 600px) {
+      flex-direction: row;
       margin: 0.5rem 0;
+      font-size: small;
 
       .separator::after {
         content: '•';
@@ -117,7 +123,7 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
   }
 
   .description {
-    font-size: medium;
+    font-size: small;
     color: #9f9f9f;
     @media (max-width: 599px) {
       display: none;

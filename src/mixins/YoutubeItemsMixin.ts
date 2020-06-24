@@ -2,12 +2,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import moment from 'moment';
 
 @Component
-class VideoInfoMixin extends Vue {
+class YoutubeItemsMixin extends Vue {
   private padTime(t: number) {
     return t < 10 ? '0' + t : t;
   }
 
-  public calculateViews(value: string) {
+  public calculateStatisticsNumbers(value: string) {
     const views = Number(value);
     if (value.length <= 3) return String(views);
     else if (value.length <= 6) return (views / Math.pow(10, 3)).toFixed(1) + 'K';
@@ -28,4 +28,4 @@ class VideoInfoMixin extends Vue {
     else return this.padTime(duration.minutes()) + ':' + this.padTime(duration.seconds());
   }
 }
-export default VideoInfoMixin;
+export default YoutubeItemsMixin;

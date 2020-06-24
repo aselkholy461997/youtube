@@ -44,4 +44,10 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
     const response = await axios.get(url);
     return response.data;
   }
+
+  public async getChannelDetails(channelId: string) {
+    const url = `${this.baseApiURL}channels?part=statistics&id=${channelId}&key=${this.apiKey}`;
+    const response = await axios.get(url);
+    return response.data;
+  }
 }

@@ -8,14 +8,14 @@
       <p class="title my-0">
         {{ title }}
       </p>
-      <div class="info-row d-flex">
+      <div class="info-row color-777 d-flex">
         <p class="separator my-0">
           {{ item.snippet.channelTitle }}
         </p>
         <p class="publishedAt separator my-0">{{ views }}</p>
         <p class="my-0">{{ publishedAt }}</p>
       </div>
-      <p class="description my-0">
+      <p class="description color-777 my-0">
         {{ item.snippet.description }}
       </p>
     </div>
@@ -121,7 +121,6 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
 
   .info-row {
     margin: 0.25rem 0 0;
-    color: #9f9f9f;
     font-size: smaller;
     flex-direction: column;
 
@@ -146,7 +145,6 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
 
   .description {
     font-size: small;
-    color: #9f9f9f;
     @media (max-width: 599px) {
       display: none;
     }

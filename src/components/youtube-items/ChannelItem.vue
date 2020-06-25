@@ -8,11 +8,11 @@
       <p class="title my-0">
         {{ title }}
       </p>
-      <div class="info-row d-flex">
+      <div class="info-row color-777 d-flex">
         <p class="separator my-0">{{ subscriberCount }} subscribers</p>
         <p class="my-0">{{ videoCount }} videos</p>
       </div>
-      <p class="description my-0">
+      <p class="description color-777 my-0">
         {{ item.snippet.description }}
       </p>
     </div>
@@ -72,20 +72,21 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
 
 <style scoped lang="scss">
 .img-container {
-  width: 53%;
-  height: fit-content;
-  @media (max-width: 599px) {
-    width: fit-content;
+  @media (min-width: 600px) {
+    margin: 0 12.5%;
   }
 
   img {
     border-radius: 50%;
-    width: 40%;
-    height: 80%;
-    @media (max-width: 599px) {
-      width: auto;
-      height: auto;
-    }
+    max-width: 100px;
+    min-width: 100px;
+    height: auto;
+    // width: 40%;
+    // height: 80%;
+    // @media (max-width: 599px) {
+    //   width: auto;
+    //   height: auto;
+    // }
   }
 }
 
@@ -95,7 +96,7 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
   align-items: stretch;
 
   .title {
-    margin-top: 17%;
+    margin-top: 25%;
     color: #111111;
     font-size: small;
     @media (min-width: 600px) {
@@ -106,7 +107,6 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
 
   .info-row {
     margin: 0.25rem 0 0;
-    color: #9f9f9f;
     font-size: smaller;
     flex-direction: column-reverse;
 
@@ -124,7 +124,6 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
 
   .description {
     font-size: small;
-    color: #9f9f9f;
     @media (max-width: 599px) {
       display: none;
     }

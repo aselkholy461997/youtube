@@ -5,20 +5,20 @@
       <img :src="thumbnail.url" alt="Playlist Image" />
       <div class="playlist-videos-count col">
         <p class="mb-2">{{ totalResults }}</p>
-        <img src="../../assets/playlist-icon.png" />
+        <img src="../../assets/playlist-icon.png" alt="Playlist Icon"/>
       </div>
     </div>
     <div class="text-container col" :style="{ 'max-height': thumbnail.height + 'px' }">
       <p class="title my-0">
         {{ title }}
       </p>
-      <p class="channel-title my-0">
+      <p class="channel-title color-777 my-0">
         {{ item.snippet.channelTitle }}
       </p>
-      <p class="description">
+      <p class="description color-777">
         {{ item.snippet.description }}
       </p>
-      <p class="watch-full-playlist">VIEW FULL PLAYLIST ({{ totalResults }} VIDEOS)</p>
+      <p class="watch-full-playlist color-777">VIEW FULL PLAYLIST ({{ totalResults }} VIDEOS)</p>
     </div>
   </div>
 </template>
@@ -110,7 +110,6 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
 
   .channel-title {
     margin: 0.27rem 0;
-    color: #9f9f9f;
     font-size: smaller;
 
     @media (min-width: 600px) {
@@ -121,14 +120,9 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
   .description,
   .watch-full-playlist {
     font-size: small;
-    color: #9f9f9f;
     @media (max-width: 599px) {
       display: none;
     }
-  }
-
-  .watch-full-playlist {
-    color: gray;
   }
 }
 </style>

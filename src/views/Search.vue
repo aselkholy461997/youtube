@@ -1,5 +1,6 @@
 <template>
-  <div class="search">
+  <div>
+    <SearchFilters v-show="searchItems" :windowWidth="windowWidth" :changedTotalResults="changedTotalResults" />
     <div
       :class="{ 'mb-4': index != searchItems.length - 1 }"
       v-for="(item, index) in searchItems"
@@ -18,7 +19,7 @@
       <PlaylistItem v-else-if="item.id.kind === 'youtube#playlist'" :item="item" />
       <p v-else>{{ item.id.kind }}</p>
     </div>
-    <button v-if="windowWidth < 600" id="load-more-button" class="mt-2" @click="loadMore">
+    <button v-show="searchItems" v-if="windowWidth < 600" id="load-more-button" class="mt-2" @click="loadMore">
       {{ loadingStatus ? '' : 'Load More' }}
       <LoadingSpinner v-if="loadingStatus" />
     </button>
@@ -27,26 +28,29 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import store from '@/store';
 
-import AxiosClient from '../api/index';
+import store from '@/store';
+import AxiosClient from '@/api/index';
 import VideoItem from '@/components/youtube-items/VideoItem.vue';
 import ChannelItem from '@/components/youtube-items/ChannelItem.vue';
 import PlaylistItem from '@/components/youtube-items/PlaylistItem.vue';
 import LoadingSpinner from '@/components/loading/LoadingSpinner.vue';
+import SearchFilters from '@/components/SearchFilters.vue';
 
 @Component({
   components: {
     VideoItem,
     ChannelItem,
     PlaylistItem,
-    LoadingSpinner
+    LoadingSpinner,
+    SearchFilters
   }
 })
 export default class Search extends Vue {
   axiosClient = AxiosClient.getInstance();
   windowWidth = 0;
   searchQuery = '';
+  totalResults = '';
 
   get loadingStatus(): boolean {
     return store.state.isLoading;
@@ -56,13 +60,19 @@ export default class Search extends Vue {
     return store.state.searchResult.items;
   }
 
-  created() {
+  get changedTotalResults() {
+    if (store.state.searchResult.pageInfo)
+      return Number(store.state.searchResult.pageInfo.totalResults).toLocaleString();
+    else return '';
+  }
+
+  async created() {
     if (!store.state.isLoading && !store.state.searchResult.items) {
       const searchQuery = this.$route.query.query as string;
-
       if (searchQuery && searchQuery.trim()) {
         this.searchQuery = searchQuery.trim();
-        this.axiosClient.getSearchResults(this.searchQuery.trim());
+        await this.axiosClient.getSearchResults(this.searchQuery.trim());
+        this.totalResults = Number(store.state.searchResult.pageInfo.totalResults).toLocaleString();
       }
     }
   }
@@ -94,8 +104,13 @@ export default class Search extends Vue {
   }
 
   loadMore() {
-    if (!store.state.isLoading)
-      this.axiosClient.getSearchResults(this.searchQuery.trim(), undefined, store.state.searchResult.nextPageToken);
+    if (!store.state.isLoading) {
+      this.axiosClient.getSearchResults(
+        this.searchQuery.trim(),
+        store.state.filters,
+        store.state.searchResult.nextPageToken
+      );
+    }
   }
 }
 </script>

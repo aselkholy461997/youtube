@@ -10,10 +10,10 @@ export default {
   toggleIsLoading: (state: { isLoading: boolean }) => {
     state.isLoading = !state.isLoading;
   },
-  setIsLoading: (state: { isLoading: boolean }, value: boolean) => {
-    state.isLoading = value;
-  },
   setNextPageToken: (state: { searchResult: SearchResult }, value: string) => {
     state.searchResult.nextPageToken = value;
+  },
+  setFilters: (state: { filters: { type: string; order: string; uploadDate: string } }, value: { type: string; order: string; uploadDate: string }) => {
+    state.filters = value;
   }
 };

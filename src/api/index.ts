@@ -11,8 +11,10 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
   private static axiosClient: AxiosClient;
 
   private baseApiURL = 'https://www.googleapis.com/youtube/v3/';
-  private apiKey = 'AIzaSyA6y_OuMGhA9fGJIpirKMJx3IclpMogiU0';
-  // private apiKey = 'AIzaSyAFaGDINuSRAK8Pk0NgPGk8fmh3hav73PM';
+  // private apiKey = 'AIzaSyA6y_OuMGhA9fGJIpirKMJx3IclpMogiU0'; // first
+  // private apiKey = 'AIzaSyAFaGDINuSRAK8Pk0NgPGk8fmh3hav73PM'; // second
+  // private apiKey = 'AIzaSyCxfaxpBAFxFIu7sipwXgFxka873ogWaVw'; // third
+  private apiKey = 'AIzaSyBDa-O0L0f1qDV0mFou_C3AawPP2mZ0Axk'; // fourth
 
   private maxResults = 4;
 
@@ -38,11 +40,14 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
       url += filters.uploadDate ? `&publishedAfter=${this.calculateUploadDate(filters.uploadDate)}` : '';
     }
     if (nextPageToken) url += `&pageToken=${nextPageToken}`;
-    return axios.get(url).then(response => {
+    return axios.get(url).then((response) => {
+      // if (response.status === 400) this.getSearchResults(query, undefined, nextPageToken);
+      // else {
       if (nextPageToken) {
         store.dispatch('addToSearchResult', response.data.items);
         store.dispatch('populateNextPageToken', response.data.nextPageToken);
       } else store.dispatch('populateSearchResult', response.data);
+      // }
       store.commit('toggleIsLoading');
     });
   }

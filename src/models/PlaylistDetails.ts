@@ -1,7 +1,7 @@
 import YoutubeItem from './YoutubeItem';
 import Thumbnails from './Thumbnails';
 
-export default class VideoDetails extends YoutubeItem {
+export default class PlaylistDetails extends YoutubeItem {
   items!: {
     kind: string;
     etag: string;

@@ -3,7 +3,7 @@
     <LoadingBar v-if="loadingStatus && windowWidth >= 600" />
     <HeadBar />
 
-    <LoadingSpinner v-if="loadingStatus" />
+    <LoadingSpinner v-if="loadingStatus && windowWidth < 600" />
 
     <router-view class="router-view" />
   </div>
@@ -18,7 +18,7 @@
 }
 
 .router-view {
-  background-color: #fafafa;
+  background-color: #f7f7f7;
   padding: 1rem;
   min-height: calc(100vh - 6rem);
   @media (min-width: 600px) {

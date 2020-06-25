@@ -2,6 +2,19 @@
   display: flex;
 }
 
+.color-777 {
+  color: #777;
+}
+
+.px-2 {
+  padding-right: 0.5;
+  padding-left: 0.5;
+}
+
+.border-bottom-ccc {
+  border-bottom: 1px solid #ccc;
+}
+
 .row {
   display: flex;
   flex-direction: row;
@@ -87,6 +100,10 @@
 
 .mb-4 {
   margin-bottom: 1.5rem;
+}
+
+.mb-5 {
+  margin-bottom: 2rem;
 }
 
 .bold {

@@ -19,7 +19,8 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     curly: 'off',
     'space-before-function-paren': 'off',
-    'brace-style': 'warn'
+    'brace-style': 'warn',
+    'no-multiple-empty-lines': 'warn'
   },
   overrides: [
     {

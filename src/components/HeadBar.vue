@@ -19,7 +19,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import store from '@/store';
 
-import AxiosClient from '../api/index';
+import AxiosClient from '@/api/index';
 
 @Component
 export default class HeadBar extends Vue {

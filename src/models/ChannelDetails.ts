@@ -23,7 +23,7 @@ export default class ChannelDetails extends YoutubeItem {
         uploads: string;
         watchHistory: string;
         watchLater: string;
-      }
+      };
     };
     statistics?: {
       viewCount: string;
@@ -34,6 +34,7 @@ export default class ChannelDetails extends YoutubeItem {
       videoCount: string;
     };
   }[];
+
   pageInfo!: {
     totalResults: number;
     resultsPerPage: number;

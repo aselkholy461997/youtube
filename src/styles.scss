@@ -26,6 +26,11 @@
   flex-direction: column;
 }
 
+.mx-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .m-0 {
   margin: 0;
 }
@@ -39,8 +44,16 @@
   margin-top: 0;
 }
 
+.mr-0 {
+  margin-right: 0 !important;
+}
+
 .mb-0 {
   margin-bottom: 0;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
 }
 
 .my-1 {
@@ -83,9 +96,17 @@
   margin-left: 1rem;
 }
 
+.mt-3 {
+  margin-top: 1rem;
+}
+
 .my-3 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.mr-4 {
+  margin-right: 1.5rem;
 }
 
 .mx-4 {
@@ -93,6 +114,9 @@
   margin-left: 1.5rem;
 }
 
+.mr-5 {
+  margin-right: 3rem;
+}
 .mx-5 {
   margin-right: 2rem;
   margin-left: 2rem;
@@ -106,10 +130,29 @@
   margin-bottom: 2rem;
 }
 
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
 .bold {
   font-weight: bold;
 }
 
+.text-grey {
+  color: #9f9f9f;
+}
+
 .cursor-pointer {
   cursor: pointer;
+}
+
+@media (min-width: 600px) {
+  .separator::after {
+    content: '•';
+    margin: 0 4px;
+  }
 }

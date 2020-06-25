@@ -39,6 +39,7 @@ export default class VideoDetails extends YoutubeItem {
       commentCount: string;
     };
   }[];
+
   pageInfo!: {
     totalResults: number;
     resultsPerPage: number;

@@ -15,10 +15,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  height: 100vh;
 }
 
 .router-view {
-  background-color: #f7f7f7;
+  background-color: #fafafa;
   padding: 1rem;
   min-height: calc(100vh - 6rem);
   @media (min-width: 600px) {

@@ -18,11 +18,12 @@ export default class PlaylistDetails extends YoutubeItem {
       publishTime: string;
       position: number;
       resourceId: {
-        kind: string; 
+        kind: string;
         videoId: string;
       };
     };
   }[];
+
   pageInfo!: {
     totalResults: number;
     resultsPerPage: number;

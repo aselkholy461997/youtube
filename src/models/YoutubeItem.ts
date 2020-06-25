@@ -9,13 +9,15 @@ export default class YoutubeItem {
     channelId?: string;
     playlistId?: string;
   };
+
   snippet!: {
     publishedAt: string;
     channelId: string;
     title: string;
     description: string;
-    thumbnails: Thumbnails
+    thumbnails: Thumbnails;
   };
+
   channelTitle!: string;
   liveBroadcastContent!: string;
   publishTime!: string;

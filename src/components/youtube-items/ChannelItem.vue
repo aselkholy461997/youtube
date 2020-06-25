@@ -72,21 +72,21 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
 
 <style scoped lang="scss">
 .img-container {
-  @media (min-width: 600px) {
-    margin: 0 12.5%;
+  width: 320px;
+  height: 180px;
+  @media (max-width: 599px) {
+    width: 120px;
+    height: 90px;
   }
 
   img {
     border-radius: 50%;
-    max-width: 100px;
-    min-width: 100px;
-    height: auto;
-    // width: 40%;
-    // height: 80%;
-    // @media (max-width: 599px) {
-    //   width: auto;
-    //   height: auto;
-    // }
+    width: auto;
+    height: 180px;
+    @media (max-width: 599px) {
+      width: auto;
+      height: 90px;
+    }
   }
 }
 
@@ -94,19 +94,19 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
   text-align: initial;
   overflow-y: hidden;
   align-items: stretch;
+  justify-content: center;
 
   .title {
-    margin-top: 25%;
     color: #111111;
     font-size: small;
     @media (min-width: 600px) {
-      margin-top: 3%;
       font-size: large;
     }
   }
 
   .info-row {
     margin: 0.25rem 0 0;
+    color: #9f9f9f;
     font-size: smaller;
     flex-direction: column-reverse;
 
@@ -114,16 +114,12 @@ export default class ChannelItem extends Mixins(HTMLEntitiesMixin, YoutubeItemsM
       flex-direction: row;
       margin: 0.5rem 0;
       font-size: small;
-
-      .separator::after {
-        content: '•';
-        margin: 0 4px;
-      }
     }
   }
 
   .description {
     font-size: small;
+    color: #9f9f9f;
     @media (max-width: 599px) {
       display: none;
     }

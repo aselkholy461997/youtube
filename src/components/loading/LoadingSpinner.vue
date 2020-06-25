@@ -15,10 +15,12 @@ export default class LoadingSpinner extends Vue {}
 
 <style scoped lang="scss">
 .loading-spinner {
-  position: relative;
   width: 100%;
   height: 100%;
-  display: contents;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 }
 
 .spinner {

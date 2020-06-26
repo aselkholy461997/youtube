@@ -93,8 +93,9 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
       store.dispatch('populateSelectedItem', this.item);
       store.dispatch('populateSelectedVideo', this.videoDetails);
       if (this.item.id.videoId) {
-        this.$router.push({ path: `/video/${this.item.id.videoId}` });
-        location.reload();
+        this.$router.push({ path: `/video/${this.item.id.videoId}` }).then(value => {
+          location.reload();
+        });
       }
     }
   }

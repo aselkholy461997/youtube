@@ -10,11 +10,7 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
 
   private baseApiURL = 'https://www.googleapis.com/youtube/v3/';
 
-  // private apiKey = 'AIzaSyA6y_OuMGhA9fGJIpirKMJx3IclpMogiU0'; // first
-  // private apiKey = 'AIzaSyAFaGDINuSRAK8Pk0NgPGk8fmh3hav73PM'; // second
-  // private apiKey = 'AIzaSyCxfaxpBAFxFIu7sipwXgFxka873ogWaVw'; // third
-  // private apiKey = 'AIzaSyBDa-O0L0f1qDV0mFou_C3AawPP2mZ0Axk'; // fourth
-  private apiKey = 'AIzaSyA4p7WTz_bisMTPLMTuZ6rYe5K7vnkk1v4'; // fifth
+  private apiKey = '';
 
   private maxResults = 4;
 

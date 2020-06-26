@@ -1,3 +1,5 @@
+<!-- You should first put an apiKey in index.ts in src/api -->
+
 # youtube
 
 ## Project setup

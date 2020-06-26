@@ -126,21 +126,6 @@ export default class HeadBar extends Vue {
     }
   }
 
-  // .search-button,
-  // .search-field {
-  //   height: 100%;
-  //   outline: none;
-  //   border: none;
-  //   color: white;
-  //   background: transparent;
-
-  //   @media (min-width: 600px) {
-  //     border: thick;
-  //     color: black;
-  //     background-color: white;
-  //   }
-  // }
-
   .search-field:focus,
   textarea:focus {
     color: black;
@@ -153,7 +138,6 @@ export default class HeadBar extends Vue {
   }
 
   .search-container {
-    //margin-left: 50px;
     height: 100%;
     display: flex;
     width: 100%;

@@ -40,7 +40,7 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
       url += filters.uploadDate ? `&publishedAfter=${this.calculateUploadDate(filters.uploadDate)}` : '';
     }
     if (nextPageToken) url += `&pageToken=${nextPageToken}`;
-        return axios.get(url).then((response) => {
+    return axios.get(url).then((response) => {
       // if (response.status === 400) this.getSearchResults(query, undefined, nextPageToken);
       // else {
       if (nextPageToken) {

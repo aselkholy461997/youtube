@@ -97,19 +97,28 @@ export default class Search extends Vue {
   }
 
   onScroll() {
-    if (store.state.searchResult.nextPageToken && this.windowWidth >= 600) {
-      const isBottomOfWindowReached =
-        Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) +
-          window.innerHeight ===
-        document.documentElement.offsetHeight;
+    // if (store.state.searchResult.nextPageToken && this.windowWidth >= 600) {
+    //   debugger;
+    //   const isBottomOfWindowReached =
+    //     Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) +
+    //       window.innerHeight ===
+    //     document.documentElement.offsetHeight;
 
-      if (isBottomOfWindowReached) this.loadMore();
+    //   if (isBottomOfWindowReached) this.loadMore();
+    // }
+
+    if (document.body.scrollHeight === window.scrollY + window.innerHeight) {
+      this.loadMore();
     }
   }
 
   loadMore() {
     if (!store.state.isLoading)
-      this.axiosClient.getSearchResults(this.searchQuery.trim(), store.state.filters, store.state.searchResult.nextPageToken);
+      this.axiosClient.getSearchResults(
+        this.searchQuery.trim(),
+        store.state.filters,
+        store.state.searchResult.nextPageToken
+      );
   }
 }
 </script>

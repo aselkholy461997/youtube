@@ -1,8 +1,7 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
-import Search from '@/views/Search.vue'
+import Vue from 'vue';
+import VueRouter, { RouteConfig } from 'vue-router';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
@@ -12,10 +11,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/search',
     name: 'Search',
-    component: Search
+    component: () => import(/* webpackChunkName: "about" */ '../views/Search.vue')
   },
   {
-    path: '/details',
+    path: '/video/:id',
     name: 'Details',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -32,12 +31,12 @@ const routes: Array<RouteConfig> = [
     name: 'notFound',
     component: () => import(/* webpackChunkName: "about" */ '../views/404.vue')
   }
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
 
-export default router
+export default router;

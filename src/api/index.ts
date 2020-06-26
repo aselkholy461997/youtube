@@ -5,16 +5,16 @@ import axios from 'axios';
 import store from '@/store';
 import DateTimeMixin from '@/mixins/DateTimeMixin';
 
-// https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=over and over again&key=
-
 export default class AxiosClient extends Mixins(DateTimeMixin) {
   private static axiosClient: AxiosClient;
 
   private baseApiURL = 'https://www.googleapis.com/youtube/v3/';
+
   // private apiKey = 'AIzaSyA6y_OuMGhA9fGJIpirKMJx3IclpMogiU0'; // first
   // private apiKey = 'AIzaSyAFaGDINuSRAK8Pk0NgPGk8fmh3hav73PM'; // second
   // private apiKey = 'AIzaSyCxfaxpBAFxFIu7sipwXgFxka873ogWaVw'; // third
-  private apiKey = 'AIzaSyBDa-O0L0f1qDV0mFou_C3AawPP2mZ0Axk'; // fourth
+  // private apiKey = 'AIzaSyBDa-O0L0f1qDV0mFou_C3AawPP2mZ0Axk'; // fourth
+  private apiKey = 'AIzaSyA4p7WTz_bisMTPLMTuZ6rYe5K7vnkk1v4'; // fifth
 
   private maxResults = 4;
 
@@ -40,7 +40,7 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
       url += filters.uploadDate ? `&publishedAfter=${this.calculateUploadDate(filters.uploadDate)}` : '';
     }
     if (nextPageToken) url += `&pageToken=${nextPageToken}`;
-    return axios.get(url).then((response) => {
+        return axios.get(url).then((response) => {
       // if (response.status === 400) this.getSearchResults(query, undefined, nextPageToken);
       // else {
       if (nextPageToken) {
@@ -59,13 +59,19 @@ export default class AxiosClient extends Mixins(DateTimeMixin) {
   }
 
   public async getChannelDetails(channelId: string) {
-    const url = `${this.baseApiURL}channels?part=statistics&id=${channelId}&key=${this.apiKey}`;
+    const url = `${this.baseApiURL}channels?part=snippet&part=statistics&id=${channelId}&key=${this.apiKey}`;
     const response = await axios.get(url);
     return response.data;
   }
 
   public async getPlaylistDetails(playlistId: string) {
     const url = `${this.baseApiURL}playlistItems?part=snippet&playlistId=${playlistId}&key=${this.apiKey}`;
+    const response = await axios.get(url);
+    return response.data;
+  }
+
+  public async getRelatedVideos(videoId: string) {
+    const url = `${this.baseApiURL}search?part=snippet&relatedToVideoId=${videoId}&type=video&maxResults=${this.maxResults}&key=${this.apiKey}`;
     const response = await axios.get(url);
     return response.data;
   }

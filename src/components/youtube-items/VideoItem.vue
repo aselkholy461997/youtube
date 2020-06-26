@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex cursor-pointer">
+  <div class="d-flex cursor-pointer" @click="goToDetails">
     <div class="img-container mr-3">
       <img v-bind:src="thumbnail.url" alt="Video Image" />
       <div class="duration m-0">{{ duration }}</div>
@@ -30,6 +30,7 @@ import HTMLEntitiesMixin from '@/mixins/HTMLEntitiesMixin';
 import DateTimeMixin from '@/mixins/DateTimeMixin';
 import YoutubeItemsMixin from '@/mixins/YoutubeItemsMixin';
 import AxiosClient from '@/api';
+import store from '@/store';
 
 @Component
 export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, YoutubeItemsMixin) {
@@ -71,8 +72,11 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
   get thumbnail() {
     const thumbnails = this.item.snippet.thumbnails;
 
-    if (window.screen.width / 3 >= thumbnails.high.width) return thumbnails.high;
-    else if (window.screen.width / 3 >= thumbnails.medium.width) return thumbnails.medium;
+    // if (window.screen.width / 3 >= thumbnails.high.width) return thumbnails.high;
+    // else if (window.screen.width / 3 >= thumbnails.medium.width) return thumbnails.medium;
+    // else return thumbnails.default;
+
+    if (window.screen.width / 3 >= thumbnails.medium.width) return thumbnails.medium;
     else return thumbnails.default;
   }
 
@@ -82,6 +86,17 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
 
   get publishedAt(): string {
     return this.calculatePublishedAtDate(this.item.snippet.publishedAt);
+  }
+
+  goToDetails(): void {
+    if (this.videoDetails) {
+      store.dispatch('populateSelectedItem', this.item);
+      store.dispatch('populateSelectedVideo', this.videoDetails);
+      if (this.item.id.videoId) {
+        this.$router.push({ path: `/video/${this.item.id.videoId}` });
+        location.reload();
+      }
+    }
   }
 }
 </script>
@@ -128,11 +143,6 @@ export default class VideoItem extends Mixins(HTMLEntitiesMixin, DateTimeMixin, 
       margin: 0.5rem 0;
       font-size: small;
       flex-direction: row;
-
-      .separator::after {
-        content: '•';
-        margin: 0 4px;
-      }
     }
   }
 

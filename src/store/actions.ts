@@ -1,14 +1,20 @@
 export default {
-  addToSearchResult: ({ commit }: any, payload: any) => {
-    commit('appendToSearchResult', payload);
-  },
   populateSearchResult: ({ commit }: any, payload: any) => {
     commit('setSearchResult', payload);
+  },
+  populateFilters: ({ commit }: any, payload: any) => {
+    commit('setFilters', payload);
   },
   populateNextPageToken: ({ commit }: any, payload: any) => {
     commit('setNextPageToken', payload);
   },
-  populateFilters: ({ commit }: any, payload: any) => {
-    commit('setFilters', payload);
+  populateSelectedItem: ({ commit }: any, payload: any) => {
+    commit('setSelectedVideo', payload);
+  },
+  populateSelectedVideo: ({ commit }: any, payload: any) => {
+    commit('setSelectedItem', payload);
+  },
+  addToSearchResult: ({ commit }: any, payload: any) => {
+    commit('appendToSearchResult', payload);
   }
 };

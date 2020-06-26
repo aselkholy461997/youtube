@@ -27,5 +27,9 @@ class YoutubeItemsMixin extends Vue {
       return this.padTime(hours) + ':' + this.padTime(duration.minutes()) + ':' + this.padTime(duration.seconds());
     else return this.padTime(duration.minutes()) + ':' + this.padTime(duration.seconds());
   }
+
+  public calculateDate(value: string) {
+    return moment(value).format('D MMM YYYY');
+  }
 }
 export default YoutubeItemsMixin;

@@ -19,7 +19,7 @@
       <PlaylistItem v-else-if="item.id.kind === 'youtube#playlist'" :item="item" />
       <p v-else>{{ item.id.kind }}</p>
     </div>
-    <button v-show="searchItems" v-if="windowWidth < 600" id="load-more-button" class="mt-2" @click="loadMore">
+    <button v-if="showLoadMoreButton" id="load-more-button" class="mt-2" @click="loadMore">
       {{ loadingStatus ? '' : 'Load More' }}
       <LoadingSpinner v-if="loadingStatus" />
     </button>
@@ -28,22 +28,21 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
 import store from '@/store';
+
 import AxiosClient from '@/api/index';
 import VideoItem from '@/components/youtube-items/VideoItem.vue';
 import ChannelItem from '@/components/youtube-items/ChannelItem.vue';
 import PlaylistItem from '@/components/youtube-items/PlaylistItem.vue';
 import LoadingSpinner from '@/components/loading/LoadingSpinner.vue';
 import SearchFilters from '@/components/SearchFilters.vue';
-
 @Component({
   components: {
     VideoItem,
     ChannelItem,
     PlaylistItem,
-    LoadingSpinner,
-    SearchFilters
+    SearchFilters,
+    LoadingSpinner
   }
 })
 export default class Search extends Vue {
@@ -66,9 +65,14 @@ export default class Search extends Vue {
     else return '';
   }
 
+  get showLoadMoreButton() {
+    return this.windowWidth < 600 && store.state.searchResult.items;
+  }
+
   async created() {
     if (!store.state.isLoading && !store.state.searchResult.items) {
       const searchQuery = this.$route.query.query as string;
+
       if (searchQuery && searchQuery.trim()) {
         this.searchQuery = searchQuery.trim();
         await this.axiosClient.getSearchResults(this.searchQuery.trim());
@@ -104,13 +108,8 @@ export default class Search extends Vue {
   }
 
   loadMore() {
-    if (!store.state.isLoading) {
-      this.axiosClient.getSearchResults(
-        this.searchQuery.trim(),
-        store.state.filters,
-        store.state.searchResult.nextPageToken
-      );
-    }
+    if (!store.state.isLoading)
+      this.axiosClient.getSearchResults(this.searchQuery.trim(), store.state.filters, store.state.searchResult.nextPageToken);
   }
 }
 </script>
